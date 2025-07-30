@@ -17,11 +17,16 @@ class Book:
     
     def __eq__(self, value):
         return self.pages == value.pages
+    def __lt__(self, other):
+        return self.pages < other.pages
     
     def __add__(self, other):
         
         return self.pages + other.pages
     
+    def __gt__(self, other):
+        return self.pages > other.pages
+        
     
     
 
@@ -33,6 +38,7 @@ print(book1)
 print(repr(book1))
 
 print(book1 == book2)
+print(book1 < book2)
 
 print(book1 + book2)
 
