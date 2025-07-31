@@ -47,36 +47,35 @@
 
 class Time:
     def __init__(self, hrs, mnt):
-        self.hrs = hrs
-        self.mnt = mnt
+        self._hrs = hrs
+        self._mnt = mnt
+        self._format()
 
     def __str__(self):
-        return f'Now {self.hrs}:{self.mnt}'
+        return f'Now {self._hrs}:{self._mnt}'
     
     def __repr__(self):
-        return f'Now {self.hrs}:{self.mnt}'
+        return f'Now {self._hrs}:{self._mnt}'
     
     def __eq__(self, other):
-        return self.hrs == other.hrs and self.mnt == other.mnt
+        return self._hrs == other._hrs and self._mnt == other._mnt
+    
+    def  _format(self):
+        if self._mnt >= 60:
+            self._hrs += self._mnt//60
+            self._mnt = self._mnt%60
+        self._hrs %= 24
+
     
     def __add__(self, other):
-
-        # if self.hrs + other.hrs <= 24 and self.mnt + other.mnt <= 60:
-        #     return self.hrs + other.hrs, self.mnt + other.mnt
+        return Time((self._hrs+other._hrs), (self._mnt + other._mnt))
         
-        if self.hrs + other.hrs <= 24 and self.mnt + other.mnt > 60:
-            return self.hrs + other.hrs + (self.mnt + other.mnt)//60, (self.mnt + other.mnt)%60
-        
-        elif self.hrs + other.hrs > 24 and self.mnt + other.mnt > 60:
-            return (self.hrs + other.hrs)%24 + (self.mnt + other.mnt)//60, (self.mnt + other.mnt)%60
-        
-        else:
-            return self.hrs + other.hr, self.mnt + other.mnt
+    
 
         
     
 
-time1 = Time(20, 54)
+time1 = Time(21, 120)
 time2 = Time(5, 14)
 # print(time1 == time2)
 print(time1 + time2)
